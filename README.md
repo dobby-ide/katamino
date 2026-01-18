@@ -7,5 +7,7 @@ A small Java project to model and solve the Katamino puzzle using Pentomino piec
 - Predefined Pentomino pieces with colors
 - Solver using backtracking
 - Print the board in console
+
+
 ![Description](assets/pentomino1.png)
 ![Description](assets/pentomino2.png)
