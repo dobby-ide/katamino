@@ -3,5 +3,8 @@ public class Main {
         Board board = new Board(4,5);
         board.place(PentominoColor.LGREEN.getPentomino(), 0,0);
         board.print();
+        board.remove(PentominoColor.LGREEN.getPentomino(), 0, 0);
+        System.out.println(board.place(PentominoColor.RED.getPentomino(), 0,0));
+        board.print();
     }
 }

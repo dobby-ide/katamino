@@ -49,7 +49,7 @@ public class Board {
 
 
             if (grid[r][c] == symbol) {
-                grid[r][c] = '.';
+                grid[r][c] = '\u0000';
             }
         }
     }
