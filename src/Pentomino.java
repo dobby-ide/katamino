@@ -23,5 +23,4 @@ public class Pentomino {
     public PentominoColor getColor(){
         return color;
     }
-
 }

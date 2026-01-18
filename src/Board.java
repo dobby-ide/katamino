@@ -12,16 +12,30 @@ public class Board {
     }
 
     public boolean canPlace(Pentomino p, int startRow, int startCol){
+        for (int[] cell : p.getFilledCells()){
+            int r = startRow + cell[0];
+            int c = startCol + cell[1];
 
+            if (r < 0 || r >= rows || c < 0 || c >= cols) {
+                return false;
+            }
+            if (grid[r][c] != '\u0000') {
+                return false;
+            }
+        }
         return true;
     }
 
-    public void place(Pentomino p, int startRow, int startCol){
+    public boolean place(Pentomino p, int startRow, int startCol){
+        if (!canPlace(p,startRow,startCol)){
+            return false;
+        }
         for (int[] cell : p.getFilledCells()){
             int r = startRow + cell[0];
             int c = startCol + cell[1];
             grid[r][c] = p.getColor().name().charAt(0);
         }
+        return true;
     }
 
 
@@ -37,5 +51,7 @@ public class Board {
         }
         System.out.println();
     }
+
+
 
 }
