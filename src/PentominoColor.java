@@ -1,67 +1,73 @@
 public enum PentominoColor {
-    RED(new boolean[][] {
-            {false,true,false},
-            {true,true,true},
-            {false,true,false}
+    RED('R', new boolean[][]{
+            {false, true, false},
+            {true, true, true},
+            {false, true, false}
     }),
-    ORANGE(new boolean[][]{
-            {false,false,true},
-            {true,true,true}
+    ORANGE('O',new boolean[][]{
+            {false, false, true},
+            {true, true, true}
     }),
-    LGREEN(new boolean[][]{
-            {false,true,true},
-            {true,true,false},
-            {true,false,false}
+    LGREEN('g',new boolean[][]{
+            {false, true, true},
+            {true, true, false},
+            {true, false, false}
     }),
-    BLUE(new boolean[][]{
-            {true,true,true},
-            {true,false,false},
-            {true,false,false}
+    BLUE('B',new boolean[][]{
+            {true, true, true},
+            {true, false, false},
+            {true, false, false}
     }),
-    CYAN(new boolean[][]{
-            {true,true,false},
-            {false,true,false},
-            {false,true,true}
+    CYAN('C',new boolean[][]{
+            {true, true, false},
+            {false, true, false},
+            {false, true, true}
     }),
-    NAVYBLUE(new boolean[][]{
-            {true,true,true,true}
+    NAVYBLUE('N',new boolean[][]{
+            {true, true, true, true}
     }),
-    BROWN(new boolean[][]{
-            {true,true,true,true},
-            {false,false,true,false}
+    BROWN('b',new boolean[][]{
+            {true, true, true, true},
+            {false, false, true, false}
     }),
-    YELLOW(new boolean[][]{
-            {true,true},
-            {true,false},
-            {true,true}
+    YELLOW('Y',new boolean[][]{
+            {true, true},
+            {true, false},
+            {true, true}
     }),
-    GREEN(new boolean[][]{
-            {false,false,true},
-            {true,true,true},
-            {false,false,true}
+    GREEN('G',new boolean[][]{
+            {false, false, true},
+            {true, true, true},
+            {false, false, true}
     }),
-    PINK(new boolean[][]{
-            {true,false},
-            {true,true},
-            {true,true}
+    PINK('P',new boolean[][]{
+            {true, false},
+            {true, true},
+            {true, true}
     }),
-    GREY(new boolean[][]{
-            {false,false,true},
-            {true,true,true},
-            {false,true,false}
+    GREY('G',new boolean[][]{
+            {false, false, true},
+            {true, true, true},
+            {false, true, false}
     }),
-    VIOLET(new boolean[][]{
-            {true,true,false,false},
-            {false,true,true,true}
+    VIOLET('V',new boolean[][]{
+            {true, true, false, false},
+            {false, true, true, true}
     }),
 
     ;
 
     private final Pentomino pentomino;
+    private final char symbol;
 
-    PentominoColor(boolean[][] shape){
-        this.pentomino= new Pentomino(this, shape);
+    PentominoColor(char symbol, boolean[][] shape) {
+        this.symbol = symbol;
+        this.pentomino = new Pentomino(this, shape);
     }
+
+    public char getSymbol() {
+        return symbol;
+}
 
     public Pentomino getPentomino(){
         return pentomino;
