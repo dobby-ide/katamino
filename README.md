@@ -1,7 +1,7 @@
 # Katamino Solver
 
 Classic Katamino game, each Pentomino is represented through a 2D boolean array, converted into an ArrayList of true coords.
-The board is represented as a graph, enabling explorations of possible solutions with algorithms such as BFS.
+Enabling explorations of possible solutions with backtracking and implicit graph + Depth First Search alike traversal.
 
 ## Features
 - Board representation and piece placement
