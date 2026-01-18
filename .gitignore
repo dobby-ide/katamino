@@ -1,0 +1,26 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# VS Code (if ever used)
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build folders
+target/
+bin/
+
+# Logs and temp files
+*.log
+*.tmp
+
+
