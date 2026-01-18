@@ -1,6 +1,7 @@
 # Katamino Solver
 
-A small Java project to model and solve the Katamino puzzle using Pentomino pieces.  
+Classic Katamino game, each Pentomino is represented through a 2D boolean array, converted into an ArrayList of true coords.
+The board is represented as a graph, enabling explorations of possible solutions with algorithms such as BFS.
 
 ## Features
 - Board representation and piece placement
@@ -9,5 +10,5 @@ A small Java project to model and solve the Katamino puzzle using Pentomino piec
 - Print the board in console
 
 
-![Description](assets/pentomino1.png)
-![Description](assets/pentomino2.png)
+<img src="assets/pentomino1.png" alt="Pentomino example" width="300"/>
+<img src="assets/pentomino2.png" alt="Board example" width="300"/>
