@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Pentomino {
 
@@ -21,7 +23,20 @@ public class Pentomino {
         List<int[][]> orientations = new ArrayList<>();
 
         int base[][] = normalize(copy(filledCells));
-        
+
+        int[][] current = base;
+        for(int i = 0; i < 4; i++){
+            addIfUnique(orientations, current);
+            current = rotate90(current);
+        }
+
+        int flipped[][] = flip(base);
+        current = flipped;
+        for (int i = 0; i < 4; i++){
+            addIfUnique(orientations, current);
+            current = rotate90(current);
+        }
+
         return orientations;
     }
     private int[][] normalize(int[][] shape) {
@@ -47,6 +62,24 @@ public class Pentomino {
         return c;
     }
 
+    private void addIfUnique(List<int[][]> list, int[][] shape) {
+        for (int[][] existing : list) {
+            if (sameShape(existing, shape)) {
+                return;
+            }
+        }
+        list.add(copy(shape));
+    }
+
+    private boolean sameShape(int[][] a, int[][] b) {
+        if (a.length != b.length) return false;
+        Set<String> sa = new HashSet<>();
+        Set<String> sb = new HashSet<>();
+        for (int[] c : a) sa.add(c[0] + "," + c[1]);
+        for (int[] c : b) sb.add(c[0] + "," + c[1]);
+        return sa.equals(sb);
+    }
+
     //rotate90() needs to "understand" the height of a piece before it is rotated.
     // The formula for rotating of 90deg in a matrix is as follows: (r, c) --> (c, height - 1 - r)
     // a minRow and a maxRow will keep the height value normalized as in the method
@@ -69,6 +102,24 @@ public class Pentomino {
         }
 
         return rotated;
+    }
+
+    private int[][] flip(int[][] shape) {
+        int minCol = Integer.MAX_VALUE;
+        int maxCol = Integer.MIN_VALUE;
+        for (int[] c : shape) {
+            minCol = Math.min(minCol, c[1]);
+            maxCol = Math.max(maxCol, c[1]);
+        }
+        int width = maxCol - minCol + 1;
+        int[][] flipped = new int[shape.length][2];
+        for (int i = 0; i < shape.length; i++) {
+            int r = shape[i][0];
+            int c = shape[i][1];
+            flipped[i][0] = r;
+            flipped[i][1] = width - 1 - c;
+        }
+        return normalize(flipped);
     }
 
     public int[][] getFilledCells(){
