@@ -17,6 +17,35 @@ public class Pentomino {
     }
 
 
+    public List<int[][]> getAllRotations(){
+        List<int[][]> orientations = new ArrayList<>();
+
+        int base[][] = normalize(copy(filledCells));
+        
+        return orientations;
+    }
+    private int[][] normalize(int[][] shape) {
+        int minRow = Integer.MAX_VALUE;
+        int minCol = Integer.MAX_VALUE;
+        for (int[] c : shape) {
+            minRow = Math.min(minRow, c[0]);
+            minCol = Math.min(minCol, c[1]);
+        }
+        for (int[] c : shape) {
+            c[0] -= minRow;
+            c[1] -= minCol;
+        }
+        return shape;
+    }
+
+    private int[][] copy(int[][] shape) {
+        int[][] c = new int[shape.length][2];
+        for (int i = 0; i < shape.length; i++) {
+            c[i][0] = shape[i][0];
+            c[i][1] = shape[i][1];
+        }
+        return c;
+    }
 
     //rotate90() needs to "understand" the height of a piece before it is rotated.
     // The formula for rotating of 90deg in a matrix is as follows: (r, c) --> (c, height - 1 - r)
