@@ -38,7 +38,22 @@ public class Solver {
            // that avoids duplicate checks.
            for(int row = 0; row < board.getRows(); row++){
                for(int col = 0; col < board.getCols(); col++){
+                   int[][] shapeToTry = piece.getFilledCells();
+                    for (int rot = 0; rot < 4; rot++){
+                        if(board.canPlace(piece,shapeToTry,row,col)){
+                            board.place(piece, shapeToTry, row, col);
 
+                            remainingPieces.remove(i);
+
+                            if(solve()) return true;
+
+                            board.remove(piece, shapeToTry, row, col);
+
+                            remainingPieces.add(i, pieceColor);
+                        }
+
+                        shapeToTry = piece.rotate90(shapeToTry);
+                    }
                }
            }
        }
