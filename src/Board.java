@@ -1,6 +1,6 @@
 public class Board {
-    private int rows, cols;
-    private char[][] grid;
+    private final int rows, cols;
+    private final char[][] grid;
 
     public Board(int rows, int cols){
 
@@ -52,6 +52,14 @@ public class Board {
                 grid[r][c] = '\u0000';
             }
         }
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int getCols() {
+        return cols;
     }
 
     public void print() {

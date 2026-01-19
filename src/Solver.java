@@ -12,11 +12,38 @@ public class Solver {
        this.remainingPieces = remainingPieces;
    }
 
+   /*
+   example structure for a backtracking recursion:
+   for piece in remainingPieces
+        for rotation in pieceRotations
+            for row in boardRows
+                for col in boardCols
+                    if canPlace(piece, row, col):
+                        place(piece, row, col)
+                        remove piece from remainingPieces
+                        solve()
+                    else:
+                        undo placement
+                        add piece back
+   **/
    public boolean solve(){
+       //base case
+       if(remainingPieces.isEmpty()) return true;
 
-       
+       for(int i = 0; i < remainingPieces.size(); i++){
+           PentominoColor pieceColor = remainingPieces.get(i);
+           Pentomino piece = pieceColor.getPentomino();
 
-       return true;
+           // iterating over board positions next is more natural even though I want to try caching rotations
+           // that avoids duplicate checks.
+           for(int row = 0; row < board.getRows(); row++){
+               for(int col = 0; col < board.getCols(); col++){
+
+               }
+           }
+       }
+
+       return false;
    }
 
 
