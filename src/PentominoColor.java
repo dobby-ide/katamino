@@ -5,8 +5,8 @@ public enum PentominoColor {
             {false, true, false}
     }),
     ORANGE('O',new boolean[][]{
-            {false, false, true},
-            {true, true, true}
+            {false, false,false, true},
+            {true, true, true, true}
     }),
     LGREEN('g',new boolean[][]{
             {false, true, true},
