@@ -26,34 +26,30 @@ public class Solver {
                         undo placement
                         add piece back
    **/
-   public boolean solve(){
+   public boolean solve() {
        //base case
-       if(remainingPieces.isEmpty()) return true;
+       if (remainingPieces.isEmpty()) return true;
 
-       for(int i = 0; i < remainingPieces.size(); i++){
+       for (int i = 0; i < remainingPieces.size(); i++) {
+
            PentominoColor pieceColor = remainingPieces.get(i);
            Pentomino piece = pieceColor.getPentomino();
+           for (int[][] shape : piece.getAllRotations()) {
+               for (int row = 0; row < board.getRows(); row++) {
+                   for (int col = 0; col < board.getCols(); col++) {
 
-           // iterating over board positions next is more natural even though I want to try caching rotations
-           // that avoids duplicate checks.
-           for(int row = 0; row < board.getRows(); row++){
-               for(int col = 0; col < board.getCols(); col++){
-                   int[][] shapeToTry = piece.getFilledCells();
-                    for (int rot = 0; rot < 4; rot++){
-                        if(board.canPlace(piece,shapeToTry,row,col)){
-                            board.place(piece, shapeToTry, row, col);
+                       if (board.canPlace(piece, shape, row, col)) {
 
-                            remainingPieces.remove(i);
+                           board.place(piece, shape, row, col);
 
-                            if(solve()) return true;
+                           remainingPieces.remove(i);
 
-                            board.remove(piece, shapeToTry, row, col);
+                           if (solve()) return true;
 
-                            remainingPieces.add(i, pieceColor);
-                        }
-
-                        shapeToTry = piece.rotate90(shapeToTry);
-                    }
+                           board.remove(piece, shape, row, col);
+                           remainingPieces.add(i, pieceColor);
+                           }
+                   }
                }
            }
        }
