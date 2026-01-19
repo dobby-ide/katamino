@@ -26,6 +26,18 @@ public class Board {
         return true;
     }
 
+    //overloaded canPlace to use in the solver
+    public boolean canPlace(Pentomino p, int[][] shape, int startRow, int startCol) {
+        for (int[] cell : shape) {
+            int r = startRow + cell[0];
+            int c = startCol + cell[1];
+
+            if (r < 0 || r >= rows || c < 0 || c >= cols) return false;
+            if (grid[r][c] != '\u0000') return false;
+        }
+        return true;
+    }
+
     public boolean place(Pentomino p, int startRow, int startCol){
         if (!canPlace(p,startRow,startCol)){
             return false;
@@ -34,6 +46,18 @@ public class Board {
             int r = startRow + cell[0];
             int c = startCol + cell[1];
             grid[r][c] = p.getColor().getSymbol();
+        }
+        return true;
+    }
+
+    //overloaded place() to use in Solver
+    public boolean place(Pentomino p, int[][] shape, int startRow, int startCol) {
+        if (!canPlace(p, shape, startRow, startCol)) return false;
+
+        for (int[] cell : shape) {
+            int r = startRow + cell[0];
+            int c = startCol + cell[1];
+            grid[r][c] = p.getColor().getSymbol(); // or any representation
         }
         return true;
     }
@@ -53,6 +77,17 @@ public class Board {
             }
         }
     }
+
+    //overloaded remove
+
+    public void remove(Pentomino p, int[][] shape, int startRow, int startCol) {
+        for (int[] cell : shape) {
+            int r = startRow + cell[0];
+            int c = startCol + cell[1];
+            grid[r][c] = '\u0000';
+        }
+    }
+
 
     public int getRows() {
         return rows;
