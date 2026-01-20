@@ -28,3 +28,5 @@ However, there is a huge combinatorics explosion when the board is 7x5 and the n
 
 <img src="assets/pentomino5.png" alt="Pentomino example" width="300"/>
 <img src="assets/pentomino6.png" alt="Board example" width="300"/>
+
+It is an exponential grow of time complexity, O(b^d).
