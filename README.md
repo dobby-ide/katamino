@@ -22,4 +22,9 @@ The algorithm backtracks and tries the next possibility if a placement leads to 
 <img src="assets/pentomino3.png" alt="Pentomino example" width="300"/>
 <img src="assets/pentomino4.png" alt="Board example" width="300"/>
 
+-----
+For a board of 4x5 with four pentaminos the solution is straight forward for the solver to execute (**12 recursive calls on solve()**).
+However, there is a huge combinatorics explosion when the board is 7x5 and the number of pieces is 7, and the total number of recursive calls becomes ≃ 1.200.000
 
+<img src="assets/pentomino5.png" alt="Pentomino example" width="300"/>
+<img src="assets/pentomino6.png" alt="Board example" width="300"/>

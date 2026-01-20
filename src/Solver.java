@@ -7,6 +7,8 @@ public class Solver {
     private final Board board;
     private final List<PentominoColor> remainingPieces;
 
+    private long recursiveCalls = 0;
+
    public Solver(Board board, List<PentominoColor> remainingPieces) {
        this.board = board;
        this.remainingPieces = remainingPieces;
@@ -27,14 +29,17 @@ public class Solver {
                         add piece back
    **/
    public boolean solve() {
+       recursiveCalls++;
        //base case
        if (remainingPieces.isEmpty()) return true;
 
        for (int i = 0; i < remainingPieces.size(); i++) {
 
+
            PentominoColor pieceColor = remainingPieces.get(i);
            Pentomino piece = pieceColor.getPentomino();
            for (int[][] shape : piece.getAllRotations()) {
+
                for (int row = 0; row < board.getRows(); row++) {
                    for (int col = 0; col < board.getCols(); col++) {
 
@@ -44,7 +49,10 @@ public class Solver {
 
                            remainingPieces.remove(i);
 
-                           if (solve()) return true;
+                           if (solve()) {
+                               System.out.println(recursiveCalls);
+                               return true;
+                           }
 
                            board.remove(piece, shape, row, col);
                            remainingPieces.add(i, pieceColor);
