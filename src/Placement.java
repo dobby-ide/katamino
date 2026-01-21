@@ -1,13 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
-// represents one specific way to place a Pentomino
+// represents one specific way to place a Pentomino on the board, The Solver class is using it to generate as many Pentamino anchored (anchor) to a place on the board
 public class Placement {
     public final PentominoColor color;
     public final Pentomino piece;
-
     public final int rotationIndex;
-
     public final Cell anchor;
     public final List<Cell> coveredCells;
 
@@ -20,17 +18,24 @@ public class Placement {
     }
 
     private List<Cell> computeCoveredCells() {
-
-
         List<Cell> cells = new ArrayList<>();
         int[][] shape = piece.getAllRotations().get(rotationIndex);
-        for (int r = 0; r < shape.length; r++) {
-            for (int c = 0; c < shape[0].length; c++) {
-                if (shape[r][c] != 0) { // occupied
-                    cells.add(new Cell(anchor.row + r, anchor.col + c));
-                }
-            }
+
+        for (int[] cell : shape) {
+
+            int boardRow = anchor.row + cell[0];
+            int boardCol = anchor.col + cell[1];
+            cells.add(new Cell(boardRow, boardCol));
         }
+
         return cells;
     }
+
+    public boolean covers(Cell c) {
+        for (Cell cell : coveredCells) {
+            if (cell.row == c.row && cell.col == c.col) return true;
+        }
+        return false;
+    }
+
 }
