@@ -1,12 +1,9 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Pentomino {
 
     private final PentominoColor color;
-    private final int[][] filledCells;
+    public final int[][] filledCells;
     public Pentomino(PentominoColor color, boolean[][] shape){
         this.color = color;
         List<int[]> coords = new ArrayList<>();
@@ -27,15 +24,16 @@ public class Pentomino {
         int[][] current = base;
         for(int i = 0; i < 4; i++){
             addIfUnique(orientations, current);
-            current = rotate90(current);
+            current = normalize(rotate90(current));
         }
 
         int flipped[][] = flip(base);
         current = flipped;
         for (int i = 0; i < 4; i++){
             addIfUnique(orientations, current);
-            current = rotate90(current);
+            current = normalize(rotate90(current));
         }
+
 
         return orientations;
     }
@@ -101,7 +99,7 @@ public class Pentomino {
             rotated[i][1] = height - 1 - r;
         }
 
-        return rotated;
+        return normalize(rotated);
     }
 
     private int[][] flip(int[][] shape) {
@@ -134,5 +132,21 @@ public class Pentomino {
         for (int[] cell : filledCells) {
             System.out.println("(" + cell[0] + ", " + cell[1] + ")");
         }
+    }
+
+    public int getHeight() {
+        int maxR = 0;
+        for (int[] cell : filledCells) {
+            maxR = Math.max(maxR, cell[0]);
+        }
+        return maxR + 1;  // +1 because rows are 0-indexed
+    }
+
+    public int getWidth() {
+        int maxC = 0;
+        for (int[] cell : filledCells) {
+            maxC = Math.max(maxC, cell[1]);
+        }
+        return maxC + 1;  // +1 because cols are 0-indexed
     }
 }
