@@ -30,3 +30,11 @@ However, there is a huge combinatorics explosion when the board is 7x5 and the n
 <img src="assets/pentomino6.png" alt="Board example" width="300"/>
 
 It is an exponential grow of time complexity, O(b^d).
+
+22.1
+After some **stressful** testing, MRV approach shows benefits.
+The overhead introduced for each node is considerable, but the amount of recursive calls when using this "rule of thumb" decreases due to reduced branching.
+<img src="assets/pentomino7.png" alt="Pentomino example" width="300"/>
+<img src="assets/pentomino8.png" alt="Board example" width="300"/>
+
+In a board with 7x5 and 7 Pentomino the solver managed to complete in about 2200 state traversals. 
