@@ -3,26 +3,30 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Board board = new Board(7,5);
 
-        List<PentominoColor> pieces = new ArrayList<>();
 
-       pieces.add(PentominoColor.BLUE);
-       pieces.add(PentominoColor.CYAN);
-       pieces.add(PentominoColor.ORANGE);
-       pieces.add(PentominoColor.VIOLET);
-       pieces.add(PentominoColor.YELLOW);
-       pieces.add(PentominoColor.GREEN);
-       pieces.add(PentominoColor.PINK);
 
-        Solver solver = new Solver(board, pieces);
 
-        if (solver.solveWithMRV()){
-            board.print();
-            System.out.println("solved");
-        } else {
-            System.out.println("failed");
-        }
+//        Board board = new Board(7,5);
+//
+//        List<PentominoColor> pieces = new ArrayList<>();
+//
+//       pieces.add(PentominoColor.BLUE);
+//       pieces.add(PentominoColor.CYAN);
+//       pieces.add(PentominoColor.ORANGE);
+//       pieces.add(PentominoColor.VIOLET);
+//       pieces.add(PentominoColor.YELLOW);
+//       pieces.add(PentominoColor.GREEN);
+//       pieces.add(PentominoColor.PINK);
+//
+//        Solver solver = new Solver(board, pieces);
+//
+//        if (solver.solveWithMRV()){
+//            board.print();
+//            System.out.println("solved");
+//        } else {
+//            System.out.println("failed");
+//        }
         //board.place(PentominoColor.LGREEN.getPentomino(), 0,0);
         //board.print();
 
