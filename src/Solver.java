@@ -229,6 +229,57 @@ Pentominos shapes in all possible rotations/flips that can fit to lay on a speci
         return header;
  }
 
+ // algorithm X
+
+    public void search(Column header, List<Node> solution){
+        if(header.right == header){
+            printSolution(solution);
+            return;
+        }
+
+        Column c = chooseColumn(header);
+        c.cover();
+
+        for (Node r = c.down; r != c; r = r.down){
+            solution.add(r);
+
+            for (Node j = r.right; j != r; j = j.right){
+                j.column.cover();
+            }
+
+            search(header, solution);
+
+            solution.remove(solution.size() - 1);
+
+            for (Node j = r.left; j != r; j = j.left){
+                j.column.uncover();
+            }
+        }
+
+        c.uncover();
+    }
+
+    public Column chooseColumn(Column header){
+        int min = Integer.MAX_VALUE;
+        Column smallerColumn = null;
+
+        for (Column c = (Column) header.right; c != header; c = (Column) c.right){
+            if(c.size < min){
+                min = c.size;
+                smallerColumn = c;
+            }
+        }
+
+        return smallerColumn;
+    }
+
+    public void printSolution(List<Node> solution){
+        for(Node n : solution){
+            System.out.println(n.placement.piece.getColor().getSymbol());
+        }
+
+    }
+
     public static void linkRight(Node a, Node b) {
         b.right = a.right;
         b.left = a;
