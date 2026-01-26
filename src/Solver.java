@@ -321,7 +321,7 @@ Pentominos shapes in all possible rotations/flips that can fit to lay on a speci
         // fill board with piece symbols
         for (Node n : solution) {
             Placement p = n.placement;
-            char symbol = p.color.getSymbol(); // e.g., 'A', 'B', 'C'
+            char symbol = p.color.getSymbol(); 
             for (Cell c : p.coveredCells) {
                 displayBoard[c.row][c.col] = symbol;
             }

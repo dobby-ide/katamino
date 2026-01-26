@@ -38,3 +38,17 @@ The overhead introduced for each node is considerable, but the amount of recursi
 <img src="assets/pentomino8.png" alt="Board example" width="300"/>
 
 In a board with 7x5 and 7 Pentomino the solver managed to complete in about 2200 state traversals. 
+
+
+26.01 -- ***DLX branch***
+
+In this implementation, each cell of the board and each pentomino piece are treated as a column in the exact cover matrix.
+Each row represents an option, that is compared amongst all remaining options, and a possible placement of a piece on the board.
+This setup allows to explore all valid placements and maintain exact cover constraints (each piece used once, each cell of the board covered exactly once).
+
+The meaning is best explained in Donald Knuth's X algorithm, discovered in 1970.
+
+
+<img src="assets/pentomino9.png" alt="Pentomino example" width="300"/>
+Given a 5x7 board and 7 pieces that accurately eventually fit on it, the dancing links approach will gain a final fast result (432 recursive calls)
+<img src="assets/pentomino10.png" alt="Board example" width="300"/>
