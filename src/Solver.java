@@ -1,7 +1,5 @@
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 //the List of pieces will shrink or grow depending on which depth level the traversal is.
@@ -193,23 +191,33 @@ Pentominos shapes in all possible rotations/flips that can fit to lay on a speci
 
 //DLX methods
 
- public Column buildDLXStructure() {
+    public Column buildDLXStructure() {
         int rows = board.getRows();
         int cols = board.getCols();
 
         Column header = new Column("H");
         Column[] cellColumns = new Column[rows * cols];
 
-        //creating columns for each cell of the board
-        for (int i = 0; i < cellColumns.length; i++){
+        // --- create board cell columns ---
+        for (int i = 0; i < cellColumns.length; i++) {
             cellColumns[i] = new Column("C" + i);
             header.linkRight(cellColumns[i]);
         }
 
-        //creating nodes for each placement
-        for (Placement p : allPlacements){
-            Node prev = null;
-            for (Cell c : p.coveredCells){
+        // --- create piece columns to prevent reuse ---
+        Map<PentominoColor, Column> pieceColumns = new HashMap<>();
+        for (PentominoColor color : remainingPieces) {
+            Column c = new Column(color.name());
+            header.linkRight(c);
+            pieceColumns.put(color, c);
+        }
+
+        // --- create nodes for each placement (rows) ---
+        for (Placement p : allPlacements) {
+            List<Node> rowNodes = new ArrayList<>();
+
+            // --- cell constraints ---
+            for (Cell c : p.coveredCells) {
                 int colIndex = c.row * board.getCols() + c.col;
                 Column col = cellColumns[colIndex];
 
@@ -218,37 +226,66 @@ Pentominos shapes in all possible rotations/flips that can fit to lay on a speci
                 node.placement = p;
 
                 col.linkDown(node);
+                rowNodes.add(node);
 
-                if (prev != null) {
-                   linkRight(prev, node);
-                }
-                prev = node;
+                // optional debug
+                System.out.println("Linked node for column " + col.name + " (placement " + p.color.name() + ")");
+            }
+
+            // --- piece constraint (prevents reuse) ---
+            Column pieceCol = pieceColumns.get(p.color);
+            Node pieceNode = new Node();
+            pieceNode.column = pieceCol;
+            pieceNode.placement = p;
+            pieceCol.linkDown(pieceNode);
+            rowNodes.add(pieceNode);
+
+            System.out.println("Linked piece node for column " + pieceCol.name + " (placement " + p.color.name() + ")");
+
+            // --- link the row circularly ---
+            for (int i = 0; i < rowNodes.size(); i++) {
+                Node current = rowNodes.get(i);
+                Node next = rowNodes.get((i + 1) % rowNodes.size());
+                current.right = next;
+                next.left = current;
             }
         }
 
         return header;
- }
+    }
 
- // algorithm X
 
-    public void search(Column header, List<Node> solution){
+
+
+
+
+    // algorithm X
+
+    public boolean search(Column header, List<Node> solution){
+        recursiveCalls++;
         if(header.right == header){
             printSolution(solution);
-            return;
+            System.out.println("recursive calls with DLX: " + recursiveCalls);
+            return true;
         }
 
+        System.out.println("Entering search, solution size: " + solution.size());
         Column c = chooseColumn(header);
+        System.out.println("Chosen column: " + c.name);
         c.cover();
 
         for (Node r = c.down; r != c; r = r.down){
+            System.out.println("Trying row for placement: " + r.placement.color.name());
             solution.add(r);
 
             for (Node j = r.right; j != r; j = j.right){
                 j.column.cover();
             }
 
-            search(header, solution);
-
+            if(search(header, solution)){
+                return true;
+            };
+            System.out.println("Backtracking from placement: " + r.placement.color.name());
             solution.remove(solution.size() - 1);
 
             for (Node j = r.left; j != r; j = j.left){
@@ -257,6 +294,7 @@ Pentominos shapes in all possible rotations/flips that can fit to lay on a speci
         }
 
         c.uncover();
+        return false;
     }
 
     public Column chooseColumn(Column header){
@@ -273,11 +311,29 @@ Pentominos shapes in all possible rotations/flips that can fit to lay on a speci
         return smallerColumn;
     }
 
-    public void printSolution(List<Node> solution){
-        for(Node n : solution){
-            System.out.println(n.placement.piece.getColor().getSymbol());
+    public void printSolution(List<Node> solution) {
+        // create empty board display
+        char[][] displayBoard = new char[board.getRows()][board.getCols()];
+        for (int r = 0; r < board.getRows(); r++) {
+            Arrays.fill(displayBoard[r], '.'); // empty cell
         }
 
+        // fill board with piece symbols
+        for (Node n : solution) {
+            Placement p = n.placement;
+            char symbol = p.color.getSymbol(); // e.g., 'A', 'B', 'C'
+            for (Cell c : p.coveredCells) {
+                displayBoard[c.row][c.col] = symbol;
+            }
+        }
+
+        // print the board
+        for (int r = 0; r < board.getRows(); r++) {
+            for (int c = 0; c < board.getCols(); c++) {
+                System.out.print(displayBoard[r][c] + " ");
+            }
+            System.out.println();
+        }
     }
 
     public static void linkRight(Node a, Node b) {
