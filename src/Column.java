@@ -10,36 +10,34 @@ public class Column extends Node{
         this.column = this;
     }
 
-    public void linkRight(Node a, Node b){
-        b.right = a.right;
-        b.left = a;
-        a.right.left = b;
-        a.right = b;
+    public void linkRight(Node node){
+        node.right = this.right;
+        node.right.left = node;
+        node.left = this;
+        this.right = node;
 
         //DLX insertion (horizontal)
     }
 
-    public void linkDown(Column column, Node node) {
-        node.down = column;
-        node.up = column.up;
+    public void linkDown(Node node) {
+        node.down = this;
+        node.up = this.up;
 
-        column.up.down = node;
-        column.up = node;
+        this.up.down = node;
+        this.up = node;
 
-        node.column = column;
-        column.size++;
-
-        //DLX insertion of a node in a column (vertical)
+        node.column = this;
+        size++;
     }
 
-    public void cover(Column c){
+    public void cover(){
 
         //remove column
-        c.right.left = c.left; //previously c.right was linked to d
-        c.left.right = c.right;
+        right.left = left; 
+        left.right = right;
 
         //this is Knuth's algorithm to unlink all other rows where the column has options
-        for (Node r = c.down; r!= c; r = r.down){
+        for (Node r = down; r!= this; r = r.down){
             for (Node j = r.right; j != r; j = j.right){ //walking right or left does not matter since the list is circular left = right = this
 
                 j.down.up = j.up;
@@ -50,9 +48,9 @@ public class Column extends Node{
 
     }
 
-    public void uncover(Column c) {
+    public void uncover() {
         //recover the column
-        for (Node r = c.up; r != c; r = r.up) {
+        for (Node r = up; r != this; r = r.up) {
             for (Node j = r.left; j != r; j = j.left) {
 
                 j.down.up = j;
@@ -62,8 +60,8 @@ public class Column extends Node{
             }
         }
 
-        c.right.left = c;
-        c.left.right = c;
+        right.left = this;
+        left.right = this;
     }
 
 
