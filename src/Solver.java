@@ -191,7 +191,51 @@ Pentominos shapes in all possible rotations/flips that can fit to lay on a speci
 
 
 
+//DLX methods
 
+ public Column buildDLXStructure() {
+        int rows = board.getRows();
+        int cols = board.getCols();
+
+        Column header = new Column("H");
+        Column[] cellColumns = new Column[rows * cols];
+
+        //creating columns for each cell of the board
+        for (int i = 0; i < cellColumns.length; i++){
+            cellColumns[i] = new Column("C" + i);
+            header.linkRight(cellColumns[i]);
+        }
+
+        //creating nodes for each placement
+        for (Placement p : allPlacements){
+            Node prev = null;
+            for (Cell c : p.coveredCells){
+                int colIndex = c.row * board.getCols() + c.col;
+                Column col = cellColumns[colIndex];
+
+                Node node = new Node();
+                node.column = col;
+                node.placement = p;
+
+                col.linkDown(node);
+
+                if (prev != null) {
+                   linkRight(prev, node);
+                }
+                prev = node;
+            }
+        }
+
+        return header;
+ }
+
+    public static void linkRight(Node a, Node b) {
+        b.right = a.right;
+        b.left = a;
+
+        a.right.left = b;
+        a.right = b;
+    }
 
 
 }
