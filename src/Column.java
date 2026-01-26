@@ -33,7 +33,7 @@ public class Column extends Node{
     public void cover(){
 
         //remove column
-        right.left = left; 
+        right.left = left;
         left.right = right;
 
         //this is Knuth's algorithm to unlink all other rows where the column has options

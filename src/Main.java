@@ -4,7 +4,15 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
+        Board board = new Board(3, 4);
 
+        List<PentominoColor> pieces = List.of(
+                PentominoColor.BLUE
+        );
+        Solver solver = new Solver(board, pieces);
+        Column header = solver.buildDLXStructure();
+
+        System.out.println("DLX structure built--testing");
 
 
 //        Board board = new Board(7,5);
