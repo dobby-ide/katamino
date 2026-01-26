@@ -4,15 +4,23 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        Board board = new Board(3, 4);
+        Board board = new Board(5, 7);
 
         List<PentominoColor> pieces = List.of(
-                PentominoColor.BLUE
+                PentominoColor.BLUE,
+                PentominoColor.ORANGE,
+                PentominoColor.VIOLET,
+                PentominoColor.CYAN,
+                PentominoColor.GREEN,PentominoColor.YELLOW, PentominoColor.PINK
         );
         Solver solver = new Solver(board, pieces);
-        Column header = solver.buildDLXStructure();
 
-        System.out.println("DLX structure built--testing");
+        Column header = solver.buildDLXStructure();
+        List<Node> solution = new ArrayList<>();
+        solver.search(header, solution);
+
+
+
 
 
 //        Board board = new Board(7,5);
