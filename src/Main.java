@@ -4,14 +4,14 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        Board board = new Board(5, 7);
+        Board board = new Board(5, 11);
 
         List<PentominoColor> pieces = List.of(
                 PentominoColor.BLUE,
                 PentominoColor.ORANGE,
                 PentominoColor.VIOLET,
                 PentominoColor.CYAN,
-                PentominoColor.GREEN,PentominoColor.YELLOW, PentominoColor.PINK
+                PentominoColor.GREEN,PentominoColor.YELLOW, PentominoColor.PINK,PentominoColor.RED,PentominoColor.GREY,PentominoColor.NAVYBLUE,PentominoColor.LGREEN
         );
         Solver solver = new Solver(board, pieces);
 

@@ -14,7 +14,7 @@ public enum PentominoColor {
             {true, false, false}
     }),
     BLUE('B',new boolean[][]{
-            //{true}
+
            {true, true, true},
             {true, false, false},
             {true, false, false}
@@ -25,7 +25,7 @@ public enum PentominoColor {
             {false, true, true}
     }),
     NAVYBLUE('N',new boolean[][]{
-            {true, true, true, true}
+            {true, true, true, true, true}
     }),
     BROWN('b',new boolean[][]{
             {true, true, true, true},

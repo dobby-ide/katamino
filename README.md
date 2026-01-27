@@ -52,3 +52,12 @@ The meaning is best explained in Donald Knuth's X algorithm, discovered in 1970.
 <img src="assets/pentomino9.png" alt="Pentomino example" width="300"/>
 Given a 5x7 board and 7 pieces that accurately eventually fit on it, the dancing links approach will gain a final fast result (432 recursive calls)
 <img src="assets/pentomino10.png" alt="Board example" width="300"/>
+
+around 900 recursive calls in a board of 5x9 and 9 pieces, 662 recursive calls were counted, probably because of a more aggressive pruning (more columns means easier heuristic choices)
+
+O O R V V V N N N N N
+O R R R g V V Y Y G G
+O G R g g C C Y G G B
+O G g g P P C Y Y G B
+G G G P P P C C B B B
+recursive calls with DLX: 662
